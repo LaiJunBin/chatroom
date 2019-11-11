@@ -1,19 +1,14 @@
 const db = require('../db')
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId
 
 const modules = {
 
     createRoom: function ({
         name
     }) {
-        return db(async function (resolve) {
-            this.collection('rooms').insertOne({
-                name,
-                users: []
-            }, function (err, res) {
-                if (err) throw err
-                resolve(true)
-            })
+        return db.insertOne('rooms', {
+            name,
+            users: []
         })
     },
 
