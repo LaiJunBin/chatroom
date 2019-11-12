@@ -9,5 +9,8 @@ module.exports = {
 
     createUser: service.user.createUser,
     createRoom: service.room.createRoom,
-    addUser: service.room.addUser
+    addUser: service.room.addUser,
+
+    deleteUser: service.user.deleteUser,
+    deleteRoom: service.room.deleteRoom
 }

@@ -1,18 +1,20 @@
 const db = require('../db')
 const ObjectId = require('mongodb').ObjectId
 
-const modules = {
+class RoomService {
 
-    createRoom: function ({
+    createRoom({
+        admin,
         name
     }) {
         return db.insertOne('rooms', {
             name,
+            admin,
             users: []
         })
-    },
+    }
 
-    addUser: function ({
+    addUser({
         _id,
         user
     }) {
@@ -23,13 +25,13 @@ const modules = {
                 users: user
             }
         })
-    },
+    }
 
-    getRooms: function () {
+    getRooms() {
         return db.get('rooms').then(res => res);
-    },
+    }
 
-    getRoom: function ({
+    getRoom({
         _id
     }) {
         return db.findOne('rooms', {
@@ -37,6 +39,23 @@ const modules = {
         }).then(res => res)
     }
 
+    deleteRoom({
+        _id
+    }) {
+        return db.deleteOne('rooms', {
+            _id: ObjectId(_id)
+        }).then(res => res.result)
+    }
+
+    deleteUser({
+        _id
+    }) {
+
+    }
+
+    clearUsers() {
+
+    }
 }
 
-module.exports = modules
+module.exports = new RoomService

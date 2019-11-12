@@ -62,5 +62,27 @@ module.exports = {
                 })
             })
         })
+    },
+
+    deleteOne: async function (table, query) {
+        return this.action(db => {
+            return new Promise(resolve => {
+                db.collection(table).deleteOne(query, function (err, res) {
+                    if (err) throw err
+                    resolve(res)
+                })
+            })
+        })
+    },
+
+    deleteMany: async function (table, query) {
+        return this.action(db => {
+            return new Promise(resolve => {
+                db.collection(table).deleteMany(query, function (err, res) {
+                    if (err) throw err
+                    resolve(res)
+                })
+            })
+        })
     }
 }

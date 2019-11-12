@@ -1,30 +1,37 @@
 const db = require('../db')
 const ObjectId = require('mongodb').ObjectId
 
-const modules = {
+class UserService {
 
-    createUser: function ({
+    createUser({
         name
     }) {
         return db.insertOne('users', {
             name
         })
-    },
+    }
 
 
-    getUsers: function () {
+    getUsers() {
         return db.get('users').then(res => res)
-    },
+    }
 
-    getUser: function ({
+    getUser({
         _id
     }) {
-        return db.findOne('users', ObjectId(_id))
-            .then(function (res) {
-                return res;
-            })
+        return db.findOne('users', {
+            _id: ObjectId(_id)
+        }).then(res => res)
+    }
+
+    deleteUser({
+        _id
+    }) {
+        return db.deleteOne('users', {
+            _id: ObjectId(_id)
+        }).then(res => res.result)
     }
 
 }
 
-module.exports = modules
+module.exports = new UserService

@@ -14,13 +14,22 @@ module.exports = buildASTSchema(gql `
 
     type Mutation{
         createUser(name: String): Boolean
-        createRoom(name: String): Boolean
+        createRoom(name: String, admin: UserInput): Boolean
         addUser(_id: ID, user: UserInput): Boolean
+
+        deleteUser(_id: ID): DeleteType
+        deleteRoom(_id: ID): DeleteType
+    }
+
+    type DeleteType{
+        n: Int
+        ok: Int
     }
 
     type Room{
         _id: ID!
-        name: String!
+        name: String!,
+        admin: User
         users: [User]
     }
 
