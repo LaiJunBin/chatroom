@@ -13,10 +13,7 @@ const modules = {
 
 
     getUsers: function () {
-        return db.get('users')
-            .then(function (res) {
-                return res;
-            })
+        return db.get('users').then(res => res)
     },
 
     getUser: function ({

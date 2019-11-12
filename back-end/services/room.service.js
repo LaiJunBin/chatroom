@@ -16,40 +16,25 @@ const modules = {
         _id,
         user
     }) {
-        return db(async function (resolve) {
-            this.collection('rooms').updateOne({
-                _id: ObjectId(_id)
-            }, {
-                $push: {
-                    users: user
-                }
-            }, function (err, res) {
-                if (err) throw err
-                resolve(true)
-            })
+        return db.updateOne('rooms', {
+            _id: ObjectId(_id)
+        }, {
+            $push: {
+                users: user
+            }
         })
     },
 
     getRooms: function () {
-        return db(async function (resolve) {
-            this.collection('rooms').find({}).toArray(function (err, res) {
-                if (err) throw err
-                resolve(res)
-            })
-        })
+        return db.get('rooms').then(res => res);
     },
 
     getRoom: function ({
         _id
     }) {
-        return db(async function (resolve) {
-            this.collection('rooms').findOne({
-                _id: ObjectId(_id)
-            }, function (err, res) {
-                if (err) throw err
-                resolve(res)
-            })
-        })
+        return db.findOne('rooms', {
+            _id: ObjectId(_id)
+        }).then(res => res)
     }
 
 }

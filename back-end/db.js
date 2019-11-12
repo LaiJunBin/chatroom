@@ -27,7 +27,7 @@ module.exports = {
         })
     },
 
-    findOne: async function (table, query, callback) {
+    findOne: async function (table, query) {
         return this.action(db => {
             return new Promise(resolve => {
                 db.collection(table).findOne(query, function (err, res) {
@@ -49,7 +49,18 @@ module.exports = {
         })
     },
 
-    get: async function (table, callback) {
-        return this.findMany(table, {}, callback);
+    get: async function (table) {
+        return this.findMany(table, {});
+    },
+
+    updateOne: async function (table, query, object) {
+        return this.action(db => {
+            return new Promise(resolve => {
+                db.collection(table).updateOne(query, object, function (err, res) {
+                    if (err) throw err
+                    resolve(true)
+                })
+            })
+        })
     }
 }
